@@ -5,9 +5,10 @@
 
 - name: download and extract the installation files
   unarchive:
-    src: https://ftp.itu.edu.tr/Mirror/Apache/hadoop/common/hadoop-3.2.1/hadoop-3.2.1.tar.gz
-    dest: /hadoop-3.2.1
-    owner: hadoop
+    src: "{{ item.value.src }}"
+    dest: "{{ item.value.dest }}"
+    owner: "{{ item.key }}"
     remote_src: yes
-- name: update config files ve upload
-- name: run the .....
+  with_dict: "{{ installation }}"  
+# - name: update config files and upload
+# - name: run the .....

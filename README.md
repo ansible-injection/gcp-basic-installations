@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Basic installations via downloading files, then
+Basic installations via downloading files onto provisioned compute instance(s) on GCP.
 
 - Extracting
 - Changing ownership
@@ -21,7 +21,8 @@ A description of the settable variables for this role should go here, including 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+- gcp_instances: to create instance(s) on GCP
+- gcp_basic_configurations: to install some fundamental packages, user creations, mounting/formating disks etc.. on GCP instances
 
 Example Playbook
 ----------------
