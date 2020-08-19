@@ -2,6 +2,6 @@
 # defaults file for gcp-basic-installations
 
 installation:
-    hadoop:                               #username!
+    xxx:                               #username!
       src: "https://ftp.itu.edu.tr/Mirror/Apache/hadoop/common/hadoop-3.2.1/hadoop-3.2.1.tar.gz"
-      dest: "/hadoop-3.2.1"               #tool extraction path
+      dest: "/"                        #tool extraction path

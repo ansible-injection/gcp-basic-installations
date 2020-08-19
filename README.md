@@ -4,19 +4,28 @@ Role Name
 Basic installations via downloading files onto provisioned compute instance(s) on GCP.
 
 - Extracting
-- Changing ownership
-- Configuration via files
-- Starting
+- Chang ownership of user and group
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Uses standard ssh, so nothing specific to GCP modules!
+
+- _ansible_ client
+- _ansible.cfg_ file
+- _hosts_ file
+- gcp account
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+defaults/main.yml
+```
+installation:
+    xxx:                               #username!
+      src: "https://ftp.itu.edu.tr/Mirror/Apache/hadoop/common/hadoop-3.2.1/hadoop-3.2.1.tar.gz"
+      dest: "/"                        #tool extraction path
+```
 
 Dependencies
 ------------
@@ -27,11 +36,51 @@ Dependencies
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+[Click](https://github.com/ansible-injection/test-gcp-iaas-roles) to test and see example playbooks.
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+hosts
+```
+# static inventory file
+
+# group w/ alias suh as hadoop/bigdata/ ....
+# Inspire from network Tags in GCP while host grouping
+# Update IPs
+# possible params: ansible_host=, ansible_user=, ansible_ssh_pass=, ansible_connection=ssh/winrm/localhost
+[web]
+standalone-node ansible_host=34.90.161.000
+```
+
+ansible.cfg
+```
+[defaults]
+host_key_checking = False
+inventory = hosts
+
+remote_user = tansudasli                          #your gcp account
+private_key_file = ~/.ssh/google_compute_engine   #If set, always uses this for authentication
+
+[inventory]
+# List of enabled inventory plugins and the order in which they are used.
+enable_plugins = host_list, script, yaml, ini, auto, gcp_compute
+
+```
+
+configuration.yaml
+```
+- name: Fundamental Compute Instance Configurations
+  hosts: 
+    - all
+  become: yes
+  gather_facts: no
+  
+  roles:
+
+    - role: tansudasli.gcp_basic_installations
+      installation:
+        xxx:                                    #username!
+          src: "https://ftp.itu.edu.tr/Mirror/Apache/hadoop/common/hadoop-3.2.1/hadoop-3.2.1.tar.gz"
+          dest: "/"                             #tool extraction path 
+```
 
 License
 -------

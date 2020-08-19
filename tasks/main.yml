@@ -1,8 +1,6 @@
 ---
 # tasks file for gcp-basic-installations
 
-# configurations for .....
-
 - name: download and extract the installation files
   unarchive:
     src: "{{ item.value.src }}"
@@ -11,5 +9,3 @@
     group: "{{ item.key }}"
     remote_src: yes
   with_dict: "{{ installation }}"  
-# - name: update config files and upload
-# - name: run the .....
