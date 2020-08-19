@@ -8,6 +8,7 @@
     src: "{{ item.value.src }}"
     dest: "{{ item.value.dest }}"
     owner: "{{ item.key }}"
+    group: "{{ item.key }}"
     remote_src: yes
   with_dict: "{{ installation }}"  
 # - name: update config files and upload
